@@ -1,14 +1,33 @@
 import React from "react";
 import { useState } from "react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { auth, app } from "../../Firebase/firebase-config";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate(); //LATER
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Email:", email);
     console.log("Password:", password);
+    login();
+  };
+
+  const login = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("signed in with", user.email);
+        setError("");
+        // navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
 
   return (
@@ -44,6 +63,7 @@ export default function Login() {
           <button type="submit" className="btn btn-primary w-100 btn-danger">
             Submit
           </button>
+          <h3 className="text-center mt-3 mb-3">{error}</h3>
         </form>
       </div>
     </div>
