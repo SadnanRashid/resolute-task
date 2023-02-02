@@ -6,6 +6,8 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  Modal,
+  Typography,
 } from "@mui/material";
 import { flexbox } from "@mui/system";
 import { firestorePost, handleSubmit } from "./Add-Student.methods";
@@ -14,6 +16,8 @@ export default function AddStudent() {
   const [error, setError] = useState("");
   const [selectedClass, setSelectedClass] = useState(1);
   const [selectedDevision, setSelectedDevision] = useState("A");
+  const [open, setOpen] = useState(false);
+  const handleClose = () => setOpen(false);
 
   function handleChange(event) {
     setSelectedClass(event.target.value);
@@ -23,11 +27,33 @@ export default function AddStudent() {
     setSelectedDevision(event.target.value);
     console.log(selectedDevision);
   }
+  const Modalstyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
   return (
     <div>
       <h1>Add Student</h1>
       {/* <Button onClick={test}>Yes</Button> */}
-      <form onSubmit={(e) => handleSubmit(e, selectedClass, selectedDevision)}>
+      <form
+        onSubmit={(e) => {
+          setError("");
+          const result = handleSubmit(e, selectedClass, selectedDevision);
+          if (result === true) {
+            setOpen(true);
+            e.target.reset();
+          } else {
+            setError(result);
+          }
+        }}
+      >
         <Box sx={{ paddingLeft: 10 }}>
           <TextField
             id="firstName"
@@ -135,8 +161,24 @@ export default function AddStudent() {
           <Button type="submit" sx={{ width: 220 }} variant="contained">
             Submit
           </Button>
+          <h2>{error}</h2>
         </Box>
       </form>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={Modalstyle}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Result
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            The data has been added successfully!
+          </Typography>
+        </Box>
+      </Modal>
     </div>
   );
 }

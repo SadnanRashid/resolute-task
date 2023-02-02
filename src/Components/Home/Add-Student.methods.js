@@ -1,12 +1,17 @@
 import { getFirestore } from "firebase/firestore";
 import { app } from "../../Firebase/firebase-config";
 import { addDoc, collection } from "firebase/firestore";
+import { useState } from "react";
+import React from "react";
 
-const firestorePost = async (data) => {
+const FirestorePost = async (data) => {
   const db = getFirestore(app);
 
   const docRef = await addDoc(collection(db, "students"), data);
-  console.log(docRef);
+  if (docRef) {
+    console.log(docRef);
+    return true;
+  }
 };
 
 const handleSubmit = (e, selectedClass, selectedDevision) => {
@@ -34,7 +39,52 @@ const handleSubmit = (e, selectedClass, selectedDevision) => {
     selectedClass,
     selectedDevision,
   };
-  firestorePost(data);
+  const validateResult = validation(data);
+  console.log(validateResult.length);
+  if (validateResult.length) {
+    validateResult.push(" needs to be filled before adding!");
+    return validateResult;
+  }
+  const result = FirestorePost(data);
+  return true;
 };
 
-export { firestorePost, handleSubmit };
+const validation = (data) => {
+  let array = [];
+  if (data.firstName === "") {
+    array.push("Firstname, ");
+  }
+  if (data.lastName === "") {
+    array.push("lastname, ");
+  }
+  if (data.middleName === "") {
+    array.push("Middlename, ");
+  }
+  if (parseInt(data.rollNumber) === null) {
+    array.push("Roll number, ");
+  }
+  if (data.address1 === "") {
+    array.push("Address 1, ");
+  }
+  if (data.address2 === "") {
+    array.push("Address 2, ");
+  }
+  if (data.landmark === "") {
+    array.push("Landmark, ");
+  }
+  if (data.city === "") {
+    array.push("City, ");
+  }
+  if (parseInt(data.pincode) === null) {
+    array.push("Pincode, ");
+  }
+  if (parseInt(data.rollNumber) > 99) {
+    array.push("Roll number must be two digits long, ");
+  }
+  if (parseInt(data.pincode) < 99999) {
+    array.push("Pincode must be 6 digits long ");
+  }
+  return array;
+};
+
+export { FirestorePost, handleSubmit };
