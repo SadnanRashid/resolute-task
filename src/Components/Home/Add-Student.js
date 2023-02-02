@@ -8,7 +8,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import { flexbox } from "@mui/system";
-import { firestorePost } from "./Add-Student.methods";
+import { firestorePost, handleSubmit } from "./Add-Student.methods";
 
 export default function AddStudent() {
   const [error, setError] = useState("");
@@ -140,29 +140,3 @@ export default function AddStudent() {
     </div>
   );
 }
-
-const handleSubmit = (e, selectedClass, selectedDevision) => {
-  e.preventDefault();
-  const form = e.target;
-  const firstName = form.firstName.value;
-  const middleName = form.middleName.value;
-  const lastName = form.lastName.value;
-  const rollNumber = form.rollNumber.value;
-  const address1 = form.address1.value;
-  const address2 = form.address2.value;
-  const landmark = form.landmark.value;
-  const city = form.city.value;
-  const pincode = form.pincode.value;
-  const data = {
-    firstName,
-    middleName,
-    lastName,
-    rollNumber,
-    address1,
-    address2,
-    landmark,
-    city,
-    pincode,
-  };
-  firestorePost(data);
-};
