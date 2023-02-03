@@ -6,16 +6,43 @@ import Navbar from "./Components/Navbar/Navbar";
 import { AuthContext } from "./Context/UserContext";
 import { useContext } from "react";
 import AddStudent from "./Components/Home/Add-Student";
+import Main from "./Layout/Layout";
+import { createBrowserRouter } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
+import ManageStudents from "./Components/Home/Manage-Students/Manage-Students";
 
 function App() {
   const { user } = useContext(AuthContext);
+  let flag;
   if (user) {
-    return <AddStudent />;
+    flag = <AddStudent />;
+  } else {
+    flag = <Login />;
   }
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Main></Main>,
+      children: [
+        {
+          path: "/",
+          element: flag,
+        },
+        {
+          path: "/login",
+          element: <Login></Login>,
+        },
+        {
+          path: "/manage",
+          element: <ManageStudents></ManageStudents>,
+        },
+      ],
+    },
+  ]);
   return (
     <div>
-      <Navbar></Navbar>
-      <Login></Login>
+      <RouterProvider router={router}></RouterProvider>
     </div>
   );
 }
