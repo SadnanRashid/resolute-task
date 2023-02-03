@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../Context/UserContext";
+import "./navbar.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  let userState = "";
+  if (user) {
+    userState = user.email;
+  } else {
+    userState = "Login";
+  }
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light flex justify-content-between px-5">
-      <h1 className="display-6">LOGO</h1>
-      <button className="btn btn-outline-dark ml-auto w-25">Button</button>
+    <nav className="navbar">
+      <h1>LOGO</h1>
+      <button
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        {userState}
+      </button>
     </nav>
   );
 }

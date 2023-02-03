@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./sidebar.css";
 import { AiOutlineUsergroupDelete, AiOutlineOrderedList } from "react-icons/ai";
 import { Button } from "@mui/material";
 import { getAuth, signOut } from "firebase/auth";
 import { auth } from "../../../Firebase/firebase-config";
-import { Navigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <div className="sidebar">
       <div>
@@ -27,7 +27,7 @@ const Sidebar = () => {
             signOut(auth)
               .then(() => {
                 console.log("Logged out");
-                <Navigate to="/" />;
+                navigate("/");
               })
               .catch((error) => {
                 console.log(error);
