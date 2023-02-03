@@ -11,6 +11,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
 import ManageStudents from "./Components/Home/Manage-Students/Manage-Students";
 import ManageStudentsView from "./Components/Home/Manage-Students/Manage-Students-View";
+import ManageStudentsEdit from "./Components/Home/Manage-Students/Manage-Student-Edit";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -41,6 +42,10 @@ function App() {
         {
           path: "/manage/view/:id",
           element: <ManageStudentsView></ManageStudentsView>,
+        },
+        {
+          path: "/manage/edit/:id",
+          element: <ManageStudentsEdit></ManageStudentsEdit>,
         },
       ],
     },

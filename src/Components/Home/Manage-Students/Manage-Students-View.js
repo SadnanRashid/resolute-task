@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 
 export default function ManageStudentsView() {
   const query = useParams();
-  console.log(query.id);
   const [data, setData] = useState({});
   useEffect(() => {
     const getData = async () => {
