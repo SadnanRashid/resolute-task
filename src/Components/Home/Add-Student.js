@@ -40,7 +40,7 @@ export default function AddStudent() {
   };
   return (
     <div>
-      <h1>Add Student</h1>
+      <h1 className="text-center">Add Student</h1>
       {/* <Button onClick={test}>Yes</Button> */}
       <form
         onSubmit={(e) => {

@@ -56,7 +56,7 @@ export default function ManageStudentsEdit() {
   };
   return (
     <div>
-      <h1>Edit Student</h1>
+      <h1 className="text-center">Edit Student</h1>
       {/* <Button onClick={test}>Yes</Button> */}
       <form
         onSubmit={(e) => {
