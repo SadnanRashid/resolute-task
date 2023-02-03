@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Button,
   TextField,
@@ -13,7 +13,8 @@ import { flexbox } from "@mui/system";
 import { firestorePost, handleSubmit } from "./Manage-Students-Edit.methods";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { app } from "../../../Firebase/firebase-config";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../../../Context/UserContext";
 
 export default function ManageStudentsEdit() {
   const [error, setError] = useState("");
@@ -23,8 +24,14 @@ export default function ManageStudentsEdit() {
   const handleClose = () => setOpen(false);
   const query = useParams();
   const [data, setData] = useState({});
+
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
   //   Get data
   useEffect(() => {
+    if (!user?.email) {
+      navigate("/login");
+    }
     const getData = async () => {
       const db = getFirestore(app);
       const docRef = doc(db, "students", query.id);

@@ -1,13 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { TextField, Box, Select, MenuItem, InputLabel } from "@mui/material";
 import { app } from "../../../Firebase/firebase-config";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../../../Context/UserContext";
 
 export default function ManageStudentsView() {
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+
   const query = useParams();
   const [data, setData] = useState({});
   useEffect(() => {
+    if (!user?.email) {
+      navigate("/login");
+      return <h1>Loading...</h1>;
+    }
     const getData = async () => {
       const db = getFirestore(app);
       const docRef = doc(db, "students", query.id);
@@ -20,6 +28,7 @@ export default function ManageStudentsView() {
   return (
     <div>
       <Box sx={{ paddingLeft: 10 }}>
+        <InputLabel>First Name</InputLabel>
         <TextField
           id="firstName"
           //   label="First Name"
@@ -30,6 +39,7 @@ export default function ManageStudentsView() {
             readOnly: true,
           }}
         />
+        <InputLabel>Middle Name</InputLabel>
         <TextField
           id="middleName"
           variant="filled"
@@ -39,6 +49,7 @@ export default function ManageStudentsView() {
             readOnly: true,
           }}
         />
+        <InputLabel>Last Name</InputLabel>
         <TextField
           id="lastName"
           variant="filled"

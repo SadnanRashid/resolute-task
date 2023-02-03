@@ -1,10 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { app } from "../../../Firebase/firebase-config";
 import { getFirestore } from "firebase/firestore";
 import ManageStudentsRender from "./Manage-Students-Render";
+import { AuthContext } from "../../../Context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ManageStudents() {
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
+  useEffect(() => {
+    if (!user?.email) {
+      navigate("/login");
+    }
+  }, []);
+
   const [data, setData] = useState([]);
   const [render, setRender] = useState("");
   // const [docID, setDocID] = useState([]);
