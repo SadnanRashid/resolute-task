@@ -15,10 +15,10 @@ import { Link, Navigate } from "react-router-dom";
 
 export default function ManageStudentsRender(props) {
   return (
-    <div>
+    <div style={{ margin: "15px" }}>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
+          <TableHead sx={{ backgroundColor: "crimson" }}>
             <TableRow>
               <TableCell>Name</TableCell>
               <TableCell align="right">Class</TableCell>
