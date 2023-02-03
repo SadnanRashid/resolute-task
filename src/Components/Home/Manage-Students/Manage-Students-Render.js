@@ -7,7 +7,11 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Button,
 } from "@mui/material";
+import { AiOutlineEye, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+import { Box } from "@mui/system";
+import { Link, Navigate } from "react-router-dom";
 
 export default function ManageStudentsRender(props) {
   return (
@@ -35,7 +39,29 @@ export default function ManageStudentsRender(props) {
                   {row.data.selectedClass + "-" + row.data.selectedDevision}
                 </TableCell>
                 <TableCell align="right">{row.data.rollNumber}</TableCell>
-                <TableCell align="right">View/Edit/Delete</TableCell>
+                <TableCell align="right">
+                  {
+                    <Box>
+                      <Button
+                        sx={{ padding: 0, paddingY: 0, fontSize: "20px" }}
+                        component={Link}
+                        to={`/manage/view/${row.id}`}
+                      >
+                        <AiOutlineEye />
+                      </Button>
+                      <Button
+                        sx={{ padding: 0, paddingY: 0, fontSize: "20px" }}
+                      >
+                        <AiOutlineEdit />
+                      </Button>
+                      <Button
+                        sx={{ padding: 0, paddingY: 0, fontSize: "20px" }}
+                      >
+                        <AiOutlineDelete />
+                      </Button>
+                    </Box>
+                  }
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
