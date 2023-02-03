@@ -12,12 +12,22 @@ import { RouterProvider } from "react-router-dom";
 import ManageStudents from "./Components/Home/Manage-Students/Manage-Students";
 import ManageStudentsView from "./Components/Home/Manage-Students/Manage-Students-View";
 import ManageStudentsEdit from "./Components/Home/Manage-Students/Manage-Student-Edit";
+import { Sidebar } from "./Components/Home/Sidebar/Sidebar";
 
 function App() {
   const { user } = useContext(AuthContext);
   let flag;
   if (user) {
-    flag = <AddStudent />;
+    flag = (
+      <div className="sidebar-place">
+        <div className="bar1">
+          <Sidebar></Sidebar>
+        </div>
+        <div className="bar2">
+          <AddStudent />
+        </div>
+      </div>
+    );
   } else {
     flag = <Login />;
   }
@@ -37,15 +47,45 @@ function App() {
         },
         {
           path: "/manage",
-          element: <ManageStudents></ManageStudents>,
+          element: (
+            <div className="sidebar-place">
+              <div className="bar1">
+                <Sidebar></Sidebar>
+              </div>
+              <div className="bar2">
+                {" "}
+                <ManageStudents></ManageStudents>
+              </div>
+            </div>
+          ),
         },
         {
           path: "/manage/view/:id",
-          element: <ManageStudentsView></ManageStudentsView>,
+          element: (
+            <div className="sidebar-place">
+              <div className="bar1">
+                <Sidebar></Sidebar>
+              </div>
+              <div className="bar2">
+                {" "}
+                <ManageStudentsView></ManageStudentsView>
+              </div>
+            </div>
+          ),
         },
         {
           path: "/manage/edit/:id",
-          element: <ManageStudentsEdit></ManageStudentsEdit>,
+          element: (
+            <div className="sidebar-place">
+              <div className="bar1">
+                <Sidebar></Sidebar>
+              </div>
+              <div className="bar2">
+                {" "}
+                <ManageStudentsEdit></ManageStudentsEdit>
+              </div>
+            </div>
+          ),
         },
       ],
     },
