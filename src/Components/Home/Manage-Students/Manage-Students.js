@@ -6,6 +6,7 @@ import ManageStudentsRender from "./Manage-Students-Render";
 
 export default function ManageStudents() {
   const [data, setData] = useState([]);
+  const [render, setRender] = useState("");
   // const [docID, setDocID] = useState([]);
   let arrayOfData = [];
   useEffect(() => {
@@ -27,11 +28,11 @@ export default function ManageStudents() {
     }
     getData();
     console.log(data);
-  }, []);
+  }, [render]);
 
   return (
     <div>
-      <ManageStudentsRender props={data} />
+      <ManageStudentsRender props={data} stateChanger={setRender} />
     </div>
   );
 }

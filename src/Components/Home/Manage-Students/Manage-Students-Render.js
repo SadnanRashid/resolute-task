@@ -12,8 +12,12 @@ import {
 import { AiOutlineEye, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { Box } from "@mui/system";
 import { Link, Navigate } from "react-router-dom";
+import { doc, deleteDoc } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
+import { app } from "../../../Firebase/firebase-config";
 
-export default function ManageStudentsRender(props) {
+export default function ManageStudentsRender({ props, stateChanger }) {
+  let flag = "";
   return (
     <div style={{ margin: "15px" }}>
       <TableContainer component={Paper}>
@@ -27,7 +31,7 @@ export default function ManageStudentsRender(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.props.map((row) => (
+            {props.map((row) => (
               <TableRow
                 key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -58,7 +62,22 @@ export default function ManageStudentsRender(props) {
                       </Button>
                       <Button
                         sx={{ padding: 0, paddingY: 0, fontSize: "20px" }}
-                        onClick={() => {}}
+                        onClick={() => {
+                          if (
+                            window.confirm(
+                              "Are you sure you want to delete this student?"
+                            ) === true
+                          ) {
+                            console.log("Pressed");
+                            const result = deleteFirestore(row.id);
+                            console.log(result);
+                            flag = row.id;
+                            stateChanger(flag);
+                            window.alert("Success!");
+                          } else {
+                            console.log("Not Confirmed");
+                          }
+                        }}
                       >
                         <AiOutlineDelete />
                       </Button>
@@ -73,3 +92,9 @@ export default function ManageStudentsRender(props) {
     </div>
   );
 }
+
+const deleteFirestore = async (id) => {
+  const db = getFirestore(app);
+  const result = await deleteDoc(doc(db, "students", id));
+  return result;
+};
