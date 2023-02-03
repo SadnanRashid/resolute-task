@@ -51,11 +51,14 @@ export default function ManageStudentsRender(props) {
                       </Button>
                       <Button
                         sx={{ padding: 0, paddingY: 0, fontSize: "20px" }}
+                        component={Link}
+                        to={`/manage/edit/${row.id}`}
                       >
                         <AiOutlineEdit />
                       </Button>
                       <Button
                         sx={{ padding: 0, paddingY: 0, fontSize: "20px" }}
+                        onClick={() => {}}
                       >
                         <AiOutlineDelete />
                       </Button>
