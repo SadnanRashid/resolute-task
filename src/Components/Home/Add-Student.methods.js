@@ -26,6 +26,7 @@ const handleSubmit = (e, selectedClass, selectedDevision) => {
   const landmark = form.landmark.value;
   const city = form.city.value;
   const pincode = form.pincode.value;
+  const userImg = form.userImg.value;
   const data = {
     firstName,
     middleName,
@@ -38,6 +39,7 @@ const handleSubmit = (e, selectedClass, selectedDevision) => {
     pincode,
     selectedClass,
     selectedDevision,
+    userImg,
   };
   const validateResult = validation(data);
   console.log(validateResult.length);

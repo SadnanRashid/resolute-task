@@ -12,10 +12,6 @@ export default function ManageStudentsView() {
   const query = useParams();
   const [data, setData] = useState({});
   useEffect(() => {
-    if (!user?.email) {
-      navigate("/login");
-      return <h1>Loading...</h1>;
-    }
     const getData = async () => {
       const db = getFirestore(app);
       const docRef = doc(db, "students", query.id);
@@ -28,37 +24,56 @@ export default function ManageStudentsView() {
   return (
     <div>
       <Box sx={{ paddingLeft: 10 }}>
-        <InputLabel>First Name</InputLabel>
-        <TextField
-          id="firstName"
-          //   label="First Name"
-          variant="filled"
-          sx={{ width: "30%", marginRight: "3%" }}
-          value={data.firstName}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-        <InputLabel>Middle Name</InputLabel>
-        <TextField
-          id="middleName"
-          variant="filled"
-          sx={{ width: "30%", marginRight: "3%" }}
-          value={data.middleName}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
-        <InputLabel>Last Name</InputLabel>
-        <TextField
-          id="lastName"
-          variant="filled"
-          sx={{ width: "30%", marginRight: "3%" }}
-          value={data.lastName}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
+        <Box sx={{ display: "flex" }}>
+          <Box sx={{ width: "70%" }}>
+            {" "}
+            <InputLabel>First Name</InputLabel>
+            <TextField
+              id="firstName"
+              //   label="First Name"
+              variant="filled"
+              sx={{ width: "100%", marginRight: "3%" }}
+              value={data.firstName}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+            <InputLabel>Middle Name</InputLabel>
+            <TextField
+              id="middleName"
+              variant="filled"
+              sx={{ width: "100%", marginRight: "3%" }}
+              value={data.middleName}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+            <InputLabel>Last Name</InputLabel>
+            <TextField
+              id="lastName"
+              variant="filled"
+              sx={{ width: "100%", marginRight: "3%" }}
+              value={data.lastName}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          </Box>
+          <Box
+            sxx={{ width: "20%", display: "flex" }}
+            className="user-image-box"
+          >
+            {data.userImg ? (
+              <img src={data.userImg} alt="" className="user-image" />
+            ) : (
+              <img
+                src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                alt=""
+                className="user-image"
+              />
+            )}
+          </Box>
+        </Box>
         {/* Select */}
         <Box sx={{ display: "flex", marginTop: "3%", marginBottom: "3%" }}>
           <Box sx={{ marginRight: "3%", width: "100%" }}>

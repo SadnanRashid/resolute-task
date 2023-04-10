@@ -24,14 +24,8 @@ export default function ManageStudentsEdit() {
   const handleClose = () => setOpen(false);
   const query = useParams();
   const [data, setData] = useState({});
-
-  const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
   //   Get data
   useEffect(() => {
-    if (!user?.email) {
-      navigate("/login");
-    }
     const getData = async () => {
       const db = getFirestore(app);
       const docRef = doc(db, "students", query.id);
