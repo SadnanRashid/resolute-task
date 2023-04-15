@@ -103,37 +103,6 @@ export default function Login() {
           </Box>
         </Box>
       </Container>
-      {/* <div>
-        <h2 className="text-center">Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email address</label>
-            <input
-              type="email"
-              className="form-control"
-              id="email"
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="form-group mt-3 mb-3">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button type="submit" className="btn btn-primary w-100 btn-danger">
-            Submit
-          </button>
-          <h3 className="text-center mt-3 mb-3">{error}</h3>
-        </form>
-      </div> */}
     </div>
   );
 }
