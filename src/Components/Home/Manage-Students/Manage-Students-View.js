@@ -6,9 +6,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../Context/UserContext";
 
 export default function ManageStudentsView() {
-  const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
-
   const query = useParams();
   const [data, setData] = useState({});
   useEffect(() => {
